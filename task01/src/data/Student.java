@@ -19,10 +19,8 @@ public class Student extends User {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "Name=" + super.getName() +
-                "Birthday=" + super.getBirthday() +
-                "studentId='" + studentId + '\'' +
-                '}';
+        return  "Тип: Студент Имя: " + super.getName() +
+                " День рождения: " + super.getBirthday() +
+                " Идентификатор: " + studentId;
     }
 }

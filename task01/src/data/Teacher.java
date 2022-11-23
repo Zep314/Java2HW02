@@ -1,14 +1,19 @@
 package data;
 
-public class Teacher extends User{
+public class Teacher extends User {
     private String disciplesTaught;
 
-    public Teacher(String disciplesTaught,String name, String birthday) {
+    public Teacher(String subject,String name, String birthday) {
         super.setName(name);
         super.setBirthday(birthday);
-        this.disciplesTaught = disciplesTaught;
+        this.disciplesTaught = subject;
     }
 
+    public Teacher() {
+        super.setName("");
+        super.setBirthday("");
+        this.disciplesTaught = "";
+    }
 
     public String getDisciplesTaught() {
         return disciplesTaught;
@@ -20,10 +25,8 @@ public class Teacher extends User{
 
     @Override
     public String toString() {
-        return "Teacher{" +
-                "Name=" + super.getName() +
-                "Birthday=" + super.getBirthday() +
-                "disciplesTaught='" + disciplesTaught + '\'' +
-                '}';
+        return  "Тип: Преподаватель Имя: " + super.getName() +
+                " День рождения: " + super.getBirthday() +
+                " Предмет: " + disciplesTaught;
     }
 }
