@@ -1,3 +1,4 @@
+// Абстрактный класс-скелет для пользователей всех мастей
 package data;
 
 public abstract class User {

@@ -1,3 +1,4 @@
+// Вспомогательный класс - чтение из файла
 package util;
 
 import data.Student;
@@ -6,27 +7,22 @@ import data.Teacher;
 import data.User;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReaderFromTxt {
-    public static User readUser(String fileName){
+    public static User readUser(String fileName){  // Чтение из файла одного члена студенческой группы
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            StringBuilder sb = new StringBuilder();
-            ArrayList<String> arrayList = new ArrayList<>();
+            ArrayList<String> arrayList = new ArrayList<>();  // Тут будет все прочитанное из файла
             while (bufferedReader.ready()) {
                 String line = bufferedReader.readLine();
                 arrayList.add(line);
             }
-            if(arrayList.get(0).contains("Teacher")){
-               User user = new Teacher(arrayList.get(3),arrayList.get(1),arrayList.get(2));
-                return user;
+            if(arrayList.get(0).contains("Teacher")){  // Возвращаем объект учителя
+                return new Teacher(arrayList.get(3),arrayList.get(1),arrayList.get(2));
             }
-            if (arrayList.get(0).contains("Student")){
-                User user = new Student(arrayList.get(3),arrayList.get(1),arrayList.get(2));
-                return user;
+            if (arrayList.get(0).contains("Student")){  // Возвращаем объект студента
+                return new Student(arrayList.get(3),arrayList.get(1),arrayList.get(2));
             }
         }
         catch (Exception e) {
@@ -35,27 +31,26 @@ public class ReaderFromTxt {
         return null;
     }
 
-    public static StudentsGroup readGroup(String fileName) {
+    public static StudentsGroup readGroup(String fileName) {  // Чтение из файла целиком всей группы
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            StringBuilder sb = new StringBuilder();
-            ArrayList<String> arrayList = new ArrayList<>();
+            ArrayList<String> arrayList = new ArrayList<>();  // Тут будет все прочитанное из файла
             while (bufferedReader.ready()) {
                 String line = bufferedReader.readLine();
                 arrayList.add(line);
             }
-            StudentsGroup group = new StudentsGroup();
+            StudentsGroup group = new StudentsGroup();  // Тут все будем формировать для возвращения
+            String kind = "";
+            String name = "";
+            String birthday = "";
+            String property = "";
             for(int i = 0; i < arrayList.size(); i++) {
-                String kind = "";
-                String name = "";
-                String birthday = "";
-                String property = "";
                 switch (i % 4) {
-                    case 0 -> kind = arrayList.get(i);
+                    case 0 -> kind = arrayList.get(i);  // на каждую запись отводится 4 чтроки в файле
                     case 1 -> name = arrayList.get(i);
                     case 2 -> birthday = arrayList.get(i);
                     case 3 -> property = arrayList.get(i);
                 }
-                if ((i % 4) == 0 && i>0) {
+                if ((i+1) % 4 == 0) {  // О! прочитали 4 строки из файла - надо все добавить в список группы
                     if (kind.equals("Teacher")) {
                         group.SetTeacher(new Teacher(property, name, birthday));
                     }
@@ -64,6 +59,7 @@ public class ReaderFromTxt {
                     }
                 }
             }
+            return group;
         } catch (Exception e) {
             e.printStackTrace();
         }

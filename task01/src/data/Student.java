@@ -1,3 +1,4 @@
+// Класс Student
 package data;
 
 public class Student extends User {
@@ -18,7 +19,7 @@ public class Student extends User {
     }
 
     @Override
-    public String toString() {
+    public String toString() {  // "Пережиток" от родительского класса. Его надо реализовать обязательно!
         return  "Тип: Студент Имя: " + super.getName() +
                 " День рождения: " + super.getBirthday() +
                 " Идентификатор: " + studentId;
